@@ -11,7 +11,7 @@ ENV = 'prod'
 
 if ENV == 'dev':
     app.debug = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:valtersh26@localhost/postgres'
+    app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://postgres:valtersh26@localhost/posts'
 else:
     app.debug = False
     app.config['SQLALCHEMY_DATABASE_URI'] = 'postgres://oyeslayiyauieh:84428f09888e1bd13edfd1f928db7e4ba4376fbeb2c9d05ab59214e6a42e65d6@ec2-18-213-176-229.compute-1.amazonaws.com:5432/dcdmn4ucads1g4'
@@ -21,6 +21,7 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 class BlogPost(db.Model):
+    __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.Text, nullable=False)
