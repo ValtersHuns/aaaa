@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "bd31e48eb357af25539b4bb0a15a3e85cad9638f886c929d80327514e94ea09a"
+            "sha256": "f57364ee6cc7defa5a6c14ae11b4ba6dedfd517873d561d6813528a5a3ecf456"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -18,10 +18,10 @@
     "default": {
         "click": {
             "hashes": [
-                "sha256:2335065e6395b9e67ca716de5f7526736bfa6ceead690adf616d925bdc622b13",
-                "sha256:5b94b49521f6456670fdb30cd82a4eca9412788a93fa6dd6df72c94d5a8ff2d7"
+                "sha256:482f552f2d5452b9eeffc44165e8b790dd53f75bcce099a812b65e0357e860e2",
+                "sha256:91eb2c43db0254aaf3b14a3c4e0db914a900aa09bbc33c6e87ede4a8f7c969dc"
             ],
-            "version": "==7.0"
+            "version": "==7.1"
         },
         "flask": {
             "hashes": [
@@ -30,6 +30,13 @@
             ],
             "index": "pypi",
             "version": "==1.1.1"
+        },
+        "flask-gunicorn": {
+            "hashes": [
+                "sha256:e8233a28511f3cbc9c9da5c32470896ce132c5650135cb7c258fa251bd51cec3"
+            ],
+            "index": "pypi",
+            "version": "==0.1.1"
         },
         "flask-sqlalchemy": {
             "hashes": [

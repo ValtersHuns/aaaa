@@ -1,61 +1,130 @@
-from flask import Flask, render_template, request
+from flask import Flask, json, jsonify, render_template, url_for, request, redirect
 from flask_sqlalchemy import SQLAlchemy
-from send_mail import send_mail
+from datetime import datetime
 
-app = Flask(__name__)
+import chats
+
+app = Flask('app')
 
 ENV = 'dev'
 
 if ENV == 'dev':
-    app.debug = True
-    app.config['SQLALCHEMY_DATABASE_URI'] = ''
-else:
-    app.debug = False
-    app.config['SQLALCHEMY_DATABASE_URI'] = ''
+  app.debug = True
+  app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://postgres:valtersh26/postgres'
 
-app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+else:
+  app.debug = False
+  app.config['SQLALCHEMY_DATABASE_URI'] = ''
+
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False 
 
 db = SQLAlchemy(app)
 
-
-class Feedback(db.Model):
-    __tablename__ = 'feedback'
+class BlogPost(db.Model):
+    __tablename__ = 'posts'
     id = db.Column(db.Integer, primary_key=True)
-    customer = db.Column(db.String(200), unique=True)
-    dealer = db.Column(db.String(200))
-    rating = db.Column(db.Integer)
-    comments = db.Column(db.Text())
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    author = db.Column(db.String(20), nullable=False, default='N/A')
+    date_posted = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
 
-    def __init__(self, customer, dealer, rating, comments):
-        self.customer = customer
-        self.dealer = dealer
-        self.rating = rating
-        self.comments = comments
+    def __repr__(self):
+        return 'Blog post ' + str(self.id)
+
+
+
+@app.route('/posts', methods=['GET', 'POST'])
+def posts():
+
+    if request.method == 'POST':
+        post_title = request.form['title']
+        post_content = request.form['content']
+        post_author = request.form['author']
+        new_post = BlogPost(title=post_title, content=post_content, author=post_author)
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect('/posts')
+    else:
+        all_posts = BlogPost.query.order_by(BlogPost.date_posted).all()
+        return render_template('posts.html', posts=all_posts)
+
+@app.route('/posts/delete/<int:id>')
+def delete(id):
+    post = BlogPost.query.get_or_404(id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect('/posts')
+
+@app.route('/posts/edit/<int:id>', methods=['GET', 'POST'])
+def edit(id):
+    
+    post = BlogPost.query.get_or_404(id)
+
+    if request.method == 'POST':
+        post.title = request.form['title']
+        post.author = request.form['author']
+        post.content = request.form['content']
+        db.session.commit()
+        return redirect('/posts')
+    else:
+        return render_template('edit.html', post=post)
+
+@app.route('/posts/new', methods=['GET', 'POST'])
+def new_post():
+    if request.method == 'POST':
+        post.title = request.form['title']
+        post.author = request.form['author']
+        post.content = request.form['content']
+        new_post = BlogPost(title=post_title, content=post_content, author=post_author)
+        db.session.add(new_post)
+        db.session.commit()
+        return redirect('/posts')
+    else:
+        return render_template('new_post.html')
 
 
 @app.route('/')
-def index():
-    return render_template('index.html')
+def home():
+  return render_template('home.html')
+
+@app.route('/lapa')
+def lapa():
+  return render_template('lapa.html')
+
+@app.route('/results')
+def results():
+  return render_template('results.html')
 
 
-@app.route('/submit', methods=['POST'])
-def submit():
-    if request.method == 'POST':
-        customer = request.form['customer']
-        dealer = request.form['dealer']
-        rating = request.form['rating']
-        comments = request.form['comments']
-        # print(customer, dealer, rating, comments)
-        if customer == '' or dealer == '':
-            return render_template('index.html', message='Please enter required fields')
-        if db.session.query(Feedback).filter(Feedback.customer == customer).count() == 0:
-            data = Feedback(customer, dealer, rating, comments)
-            db.session.add(data)
-            db.session.commit()
-            send_mail(customer, dealer, rating, comments)
-            return render_template('success.html')
-        return render_template('index.html', message='You have already submitted feedback')
+@app.route('/about')
+def contact():
+  return render_template('contact.html')
 
 
-if __name__ == '__main__':
-    app.run()
+@app.route('/chats')
+def index_lapa():
+  return render_template('chats.html')
+
+
+@app.route('/health')
+def health_check():
+  return "OK"
+
+
+@app.route('/chats/lasi')
+def ielasit_chatu():
+  return chats.lasi()
+
+
+@app.route('/chats/suuti', methods=['POST'])
+def suutiit_zinju():
+  dati = request.json
+  
+  chats.pieraksti_zinju(dati)
+
+  return chats.lasi()
+  
+  
+
+if __name__ == "__main__":
+    app.run(threaded=True, port=5000)
