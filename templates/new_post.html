@@ -11,15 +11,15 @@
     <h2>Izveido jaunu rakstu:</h2>
     <form action='/posts' method='POST'>
         <label for="title">Virsraksts:</label>
-        <input class="form-control" type="text" name='title' id='title' placeholder="Enter Title" aria-label="Enter Title">
+        <input class="form-control" type="text" name='title' id='title' placeholder=" Ievadi Virsrakstu" aria-label="Enter Title">
         <br>
         <label for="author">Autors:</label>
-        <input class="form-control" type="text" name='author' id='author' placeholder="Enter Author" aria-label="Enter Author">
+        <input class="form-control" type="text" name='author' id='author' placeholder=" Ievadi Autoru" aria-label="Enter Author">
         <br>
         <label for="content">Raksts:</label>
-        <textarea class="form-control" name='content' id="content" placeholder="Enter Content" aria-label="Enter Content" rows="3"></textarea>
+        <textarea class="form-control" name='content' id="content" placeholder="Ievadi Tekstu" aria-label="Enter Content" rows="4"></textarea>
         <br>
-        <input type='submit' value='Post'>
+        <input type='submit' value='Ievietot'>
     </form>
     <hr>
 {% endblock %}

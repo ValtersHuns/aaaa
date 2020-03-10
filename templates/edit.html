@@ -5,21 +5,21 @@
 {% endblock %}
 
 {% block content %}
-<h1>Editing Post</h1>
+<h1>Rediģēšana</h1>
 
     <hr>
-    <h2>Edit:</h2>
+    <h2>Rediģēt:</h2>
     <form action='/posts/edit/{{post.id}}' method='POST'>
-        <label for="title">Title:</label>
-        <input class="form-control" type="text" name='title' id='title' value="{{ post.title }}" aria-label="Enter Title">
+        <label for="title">Virsraksts:</label>
+        <input class="form-control" type="text" name='title' id='title' value="{{ post.title }}" aria-label="Ievadi Virsrakstu">
         <br>
-        <label for="author">Author:</label>
-        <input class="form-control" type="text" name='author' id='author' value="{{ post.author }}" aria-label="Enter Author">
+        <label for="author">Autors:</label>
+        <input class="form-control" type="text" name='author' id='author' value="{{ post.author }}" aria-label=" Ievadi Autoru">
         <br>
-        <label for="content">Post:</label>
-        <textarea class="form-control" name='content' id="content" aria-label="Enter Content" rows="3">{{ post.content }}</textarea>
+        <label for="content">Raksts:</label>
+        <textarea class="form-control" name='content' id="content" aria-label="Ievadi Tekstu" rows="3">{{ post.content }}</textarea>
         <br>
-        <input type='submit' value='Save'>
+        <input type='submit' value='Saglabāt'>
     </form>
     <hr>
 {% endblock %}
