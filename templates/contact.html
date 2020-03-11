@@ -16,7 +16,7 @@
   <p>Šī mājaslapa ir radīta, lai spētu veidot savus projektus vienotā datnē.</p>
 </div>
 <br>
-<div class="row d-block w-100 ml-1">
+<div class="row">
 
   <div class="column">
     <div class="card">
@@ -26,10 +26,18 @@
         <p class="title">Administrātors</p>
         <p>Es salauzu roku, braucu ar Passat</p>
         <p>roberts.trumars@grobinasskola.lv</p>
-        <p><button class="button">Rakstīt!</button></p>
+        <p><button class="button"  a href="#" id="mailbutton" class="btn btn-primary"> Rakstīt!</button></p>
       </div>
     </div>
   </div>
+
+<script>
+  $(document).ready(function() {
+  $('#mailbutton').click(function(event) {
+    window.location = "mailto:roberts.trumars@grobinasskola.lv";
+  });
+});
+  </script>
 
   <div class="column">
     <div class="card">
@@ -39,26 +47,48 @@
         <p class="title">Īpašnieks & Administrātors</p>
         <p>Es kačā būdu 3 reiz nedelja</p>
         <p>valters.huns@grobinasskola.lv</p>
-        <p><button class="button">Rakstīt!</button></p>
+        <p><button class="button"  a href="#" id="mailbutton1" class="btn btn-primary">Rakstīt!</button></p>
       </div>
     </div>
   </div>
 
+<script>
+  $(document).ready(function() {
+  $('#mailbutton1').click(function(event) {
+    window.location = "mailto:valters.huns@grobinasskola.lv";
+  });
+});
+  </script>
+
   <div class="column">
     <div class="card">
-      <img class="mx-auto" src="https://i.imgur.com/CXz1Soi.jpg" alt="Pifa" style="width:83%">
+      <img class="mx-auto" src="https://i.imgur.com/CXz1Soi.jpg" alt="John" style="width:83%">
       <div class="container">
         <h2>Pifiņa</h2>
         <p class="title">Talismans</p>
         <p class="title"> </p>
         <p>Mūsu komandas veiksmes talismans</p>
         
-        <p>Glaudieni: <a id="clicks">0</a></p>
+        <p>Kopējie glaudieni: <a id="result">_</a></p>
         <p class="title">  
-          <button class="button" type="button" onClick="clickME()">Paglaudīt!</button>
+          <button class="button" type="button" onClick="clickCounter()">Paglaudīt!</button>
       </div>
     </div>
   </div>
 </div>
 
+<script>
+function clickCounter() {
+  if (typeof(Storage) !== "undefined") {
+    if (localStorage.clickcount) {
+      localStorage.clickcount = Number(localStorage.clickcount)+1;
+    } else {
+      localStorage.clickcount = 1;
+    }
+    document.getElementById("result").innerHTML = "Tu esi paglaudījis Pifu  " + localStorage.clickcount + " reizi(es).";
+  } else {
+    document.getElementById("result").innerHTML = "Sorry, your browser does not support web storage...";
+  }
+}
+</script>
 {% endblock %}
