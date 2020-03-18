@@ -16,6 +16,7 @@ flask-socketio = "*"
 gevent = "*"
 gevent-websocket = "*"
 flask-wtf = "*"
+passlib = "*"
 
 [requires]
 python_version = "3.7"
