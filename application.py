@@ -14,7 +14,8 @@ app.secret_key=os.environ.get('SECRET')
 app.config['WTF_CSRF_SECRET_KEY'] = "b'f\xfa\x8b{X\x8b\x9eM\x83l\x19\xad\x84\x08\xaa"
 
 # Configure database
-app.config['SQLALCHEMY_DATABASE_URI']=os.environ.get('DATABASE_URL')app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config['SQLALCHEMY_DATABASE_URI']=os.environ.get('DATABASE_URL')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
 # Initialize login manager
