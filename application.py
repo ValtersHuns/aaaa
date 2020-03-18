@@ -26,7 +26,7 @@ login.init_app(app)
 def load_user(id):
     return User.query.get(int(id))
 
-socketio = SocketIO(app, manage_session=False)
+socketio = SocketIO(app, manage_session=True)
 
 # Predefined rooms for chat
 ROOMS = ["lounge", "news", "games", "coding"]
