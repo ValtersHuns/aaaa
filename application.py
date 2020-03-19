@@ -90,8 +90,8 @@ def chat():
     return render_template("chat.html", username=current_user.username, rooms=ROOMS)
 
 @app.teardown_request
-    def checkin_db(exc):
-        user_store.db_session.remove()
+def checkin_db(exc):
+    user_store.db_session.remove()
 
 @app.route('/home')
 def home():
