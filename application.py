@@ -91,8 +91,11 @@ def chat():
 
 @app.teardown_request
 def checkin_db(exc):
-    user_store.db_session.remove()
-
+    try:
+        g.db.close()
+    except AttributeError:
+        pass
+    
 @app.route('/home')
 def home():
   return render_template('home.html')
