@@ -27,7 +27,7 @@ login.init_app(app)
 def load_user(id):
     return User.query.get(int(id))
 
-socketio = SocketIO(app, manage_session=True)
+socketio = SocketIO(app, manage_session=False)
 
 # Predefined rooms for chat
 ROOMS = ["lounge", "news", "games", "coding"]
@@ -88,6 +88,10 @@ def chat():
         return redirect(url_for('login'))
 
     return render_template("chat.html", username=current_user.username, rooms=ROOMS)
+
+@app.teardown_request
+    def checkin_db(exc):
+        user_store.db_session.remove()
 
 @app.route('/home')
 def home():
