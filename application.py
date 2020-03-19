@@ -92,10 +92,10 @@ def chat():
 @app.teardown_request
 def checkin_db(exc):
     try:
-        g.db.close()
+        db.close()
     except AttributeError:
         pass
-    
+
 @app.route('/home')
 def home():
   return render_template('home.html')
