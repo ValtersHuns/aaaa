@@ -12,7 +12,7 @@ from models import *
 app = Flask(__name__)
 app.secret_key=os.environ.get('SECRET')
 app.config['WTF_CSRF_SECRET_KEY'] = "b'f\xfa\x8b{X\x8b\x9eM\x83l\x19\xad\x84\x08\xaa"
-app.config['SQLALCHEMY_POOL_SIZE'] = 100
+app.config['SQLALCHEMY_POOL_SIZE'] = 20
 
 # Configure database
 app.config['SQLALCHEMY_DATABASE_URI']=os.environ.get('DATABASE_URL')
@@ -89,12 +89,6 @@ def chat():
 
     return render_template("chat.html", username=current_user.username, rooms=ROOMS)
 
-@app.teardown_request
-def checkin_db(exc):
-    try:
-        db.close()
-    except AttributeError:
-        pass
 
 @app.route('/home')
 def home():
